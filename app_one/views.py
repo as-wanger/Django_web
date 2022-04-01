@@ -1,7 +1,8 @@
 from datetime import datetime
 
+import markdown
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 
 from .models import Post
@@ -15,12 +16,14 @@ def homepage(request):
     html = template.render(locals())
     return HttpResponse(html)
 
+
 def showpost(request, slug):
-    template = get_template('app_one/post.html')
-    try:
-        post = Post.objects.get(slug=slug)
-        if post != None:
-            html = template.render(locals())
-            return HttpResponse(html)
-    except:
-        return redirect('/')
+    post = get_object_or_404(Post, slug=slug)
+    if post != None:
+        post.body = markdown.markdown(post.body,
+                                      extensions=[
+                                          'markdown.extensions.extra',  # 標題、表格、引用等基本轉換
+                                          'markdown.extensions.codehilite',  # 語法 highlight
+                                          'markdown.extensions.toc',  # 生成目錄
+                                      ])
+        return render(request, 'app_one/post.html', context={'post': post})

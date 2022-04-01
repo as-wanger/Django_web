@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block footer %}
+    {% if now %}
+        <p>現在時刻：{{ now }}</p>
+    {% else %}
+        <p>本文取自網路，如有侵權請來訊通知下架...</p>
+    {% endif %}
+{% endblock %}
+</body>
+</html>
