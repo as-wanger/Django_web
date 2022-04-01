@@ -18,14 +18,21 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from app_.views import main_page
 from app_one.views import homepage, showpost
 
 urlpatterns = [
-    path('', homepage),
+    path('', main_page),
     path('admin/', admin.site.urls),
-    path('post/<slug>', showpost),
-    path('mdeditor/', include('mdeditor.urls'))
 ]
+
+# app_one
+urlpatterns += [
+    path('app_one/', homepage),
+    path('/app_one/post/<slug>', showpost),
+    path('/app_one/mdeditor/', include('mdeditor.urls'))
+]
+
 
 if settings.DEBUG:
     # static files (images, css, js, etc...)

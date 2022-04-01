@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app_.apps.App_Config',
     'app_one.apps.AppOneConfig',
     'mdeditor',
 ]
