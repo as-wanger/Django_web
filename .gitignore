@@ -1,7 +1,7 @@
 /shelf/
 /secret_key.txt
 
-/app_one/migrations
+*/migrations
 /mysqld
 /mysql_data
 

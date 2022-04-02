@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_.apps.App_Config',
     'app_one.apps.AppOneConfig',
+    'app_two.apps.AppTwoConfig',
+    'app_three.apps.AppThreeConfig',
     'mdeditor',
 ]
 

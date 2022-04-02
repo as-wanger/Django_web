@@ -17,13 +17,12 @@ def homepage(request):
     return HttpResponse(html)
 
 
-def showpost(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    if post != None:
-        post.body = markdown.markdown(post.body,
-                                      extensions=[
-                                          'markdown.extensions.extra',  # 標題、表格、引用等基本轉換
-                                          'markdown.extensions.codehilite',  # 語法 highlight
-                                          'markdown.extensions.toc',  # 生成目錄
-                                      ])
-        return render(request, 'app_one/post.html', context={'post': post})
+def showpost(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.body = markdown.markdown(post.body,
+                                  extensions=[
+                                      'markdown.extensions.extra',  # 標題、表格、引用等基本轉換
+                                      'markdown.extensions.codehilite',  # 語法 highlight
+                                      'markdown.extensions.toc',  # 生成目錄
+                                  ])
+    return render(request, 'app_one/post.html', context={'post': post})

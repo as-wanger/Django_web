@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from app_.views import main_page
 from app_one.views import homepage, showpost
+from app_two.views import index, detail
 
 urlpatterns = [
     path('', main_page),
@@ -29,8 +30,14 @@ urlpatterns = [
 # app_one
 urlpatterns += [
     path('app_one/', homepage),
-    path('/app_one/post/<slug>', showpost),
+    re_path('app_one/post/(\w+)', showpost),
     path('/app_one/mdeditor/', include('mdeditor.urls'))
+]
+
+# app_two
+urlpatterns += [
+    path('app_two/', index),
+    re_path('app_two/detail/(\d+)', detail, name='detail-url')
 ]
 
 
