@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app_two.apps.AppTwoConfig',
     'app_three.apps.AppThreeConfig',
     'mdeditor',
+    'captcha',
 ]
 
 MDEDITOR_CONFIGS = {

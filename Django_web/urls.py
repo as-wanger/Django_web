@@ -18,9 +18,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+import app_one.views as v1
+import app_three.views as v3
+import app_two.views as v2
 from app_.views import main_page
-from app_one.views import homepage, showpost
-from app_two.views import index, detail
 
 urlpatterns = [
     path('', main_page),
@@ -29,15 +30,20 @@ urlpatterns = [
 
 # app_one
 urlpatterns += [
-    path('app_one/', homepage),
-    re_path('app_one/post/(\w+)', showpost),
+    path('app_one/', v1.homepage),
+    re_path('app_one/post/(\w+)', v1.showpost),
     path('/app_one/mdeditor/', include('mdeditor.urls'))
 ]
 
 # app_two
 urlpatterns += [
-    path('app_two/', index),
-    re_path('app_two/detail/(\d+)', detail, name='detail-url')
+    path('app_two/', v2.index),
+    re_path('app_two/detail/(\d+)', v2.detail, name='detail-url')
+]
+
+# app_three
+urlpatterns += [
+    path('app_three/', v3.index),
 ]
 
 
