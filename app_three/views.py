@@ -40,7 +40,6 @@ def index(request, pid=None, del_pass=None):
         message = '成功儲存！請記得你的編輯密碼[{}]!，訊息需經審查後才會顯示。'.format(user_pass)
 
     html = template.render(locals())
-
     return HttpResponse(html)
 
 
@@ -54,6 +53,7 @@ def listing(request):
     return HttpResponse(html)
 
 
+# this is mediate function between index and postdb2, input won't store
 def posting(request):
     template = get_template('app_three/posting.html')
     moods = models.Mood.objects.all()
@@ -115,9 +115,9 @@ def contact(request):
         form = forms.ContactForm()
 
     template = get_template('app_three/contact.html')
-    request_context = RequestContext(request)
+    request_context = RequestContext(request, {})
     request_context.push(locals())
-    html = template.render(request_context)
+    html = template.render(context=locals(), request=request)
 
     return HttpResponse(html)
 
