@@ -1,9 +1,11 @@
 # _*_ encoding:utf-8 _*_
 from django.core.mail import EmailMessage
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.template.loader import get_template
-from django.http import HttpResponse, HttpResponseRedirect
+
 from app_three import models, forms
+
 
 # Create your views here.
 def index(request, pid=None, del_pass=None):
@@ -31,7 +33,7 @@ def index(request, pid=None, del_pass=None):
                 message = "資料刪除成功"
             else:
                 message = "密碼錯誤"
-    elif user_id != None:
+    elif user_id is not None:
         mood = models.Mood.objects.get(status=user_mood)
         post = models.Post.objects.create(mood=mood, nickname=user_id, del_pass=user_pass, message=user_post)
         post.save()
@@ -43,11 +45,22 @@ def index(request, pid=None, del_pass=None):
 
 
 def listing(request):
-    template = get_template('listing.html')
+    template = get_template('app_three/listing.html')
     posts = models.Post.objects.filter(enabled=True).order_by('-pub_time')[:150]
     moods = models.Mood.objects.all()
 
     html = template.render(locals())
+
+    return HttpResponse(html)
+
+
+def posting(request):
+    template = get_template('app_three/posting.html')
+    moods = models.Mood.objects.all()
+    message = '如要張貼訊息，則每一個欄位都要填...'
+    request_context = RequestContext(request, {})  # "render" only accept dict
+    request_context.push(locals())                 # Not RequestContext
+    html = template.render(context=locals(), request=request)
 
     return HttpResponse(html)
 
@@ -58,28 +71,17 @@ def post2db(request):
         if post_form.is_valid():
             message = "您的訊息已儲存，要等管理者啟用後才看得到喔。"
             post_form.save()
-            return HttpResponseRedirect('/list/')
+            return HttpResponseRedirect('/app_three/list/')
         else:
             message = '如要張貼訊息，則每一個欄位都要填...'
     else:
         post_form = forms.PostForm()
         message = '如要張貼訊息，則每一個欄位都要填...'
 
-    template = get_template('post2db.html')
-    request_context = RequestContext(request)
+    template = get_template('app_three/post2db.html')
+    request_context = RequestContext(request, {})
     request_context.push(locals())
-    html = template.render(request_context)
-
-    return HttpResponse(html)
-
-
-def posting(request):
-    template = get_template('posting.html')
-    moods = models.Mood.objects.all()
-    message = '如要張貼訊息，則每一個欄位都要填...'
-    request_context = RequestContext(request)
-    request_context.push(locals())
-    html = template.render(request_context)
+    html = template.render(context=locals(), request=request)
 
     return HttpResponse(html)
 
@@ -96,11 +98,11 @@ def contact(request):
             user_message = form.cleaned_data['user_message']
 
             mail_body = u'''
-網友姓名：{}
-居住城市：{}
-是否在學：{}
-反應意見：如下
-{}'''.format(user_name, user_city, user_school, user_message)
+                網友姓名：{}
+                居住城市：{}
+                是否在學：{}
+                反應意見：如下
+            {}'''.format(user_name, user_city, user_school, user_message)
 
             email = EmailMessage('來自【不吐不快】網站的網友意見',
                                  mail_body,
@@ -112,7 +114,7 @@ def contact(request):
     else:
         form = forms.ContactForm()
 
-    template = get_template('contact.html')
+    template = get_template('app_three/contact.html')
     request_context = RequestContext(request)
     request_context.push(locals())
     html = template.render(request_context)

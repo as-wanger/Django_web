@@ -1,17 +1,41 @@
-<nav class='navbar navbar-default'>
-    <div class='container-fluid'>
-        <div class='navbar-header'>
-            <div class='navbar-brand' align=center>
-                不吐不快
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/appthree.css" %}">
+</head>
+<body>
+    <div id="topheader">
+        <nav class='navbar navbar-default'>
+            <div class='container-fluid'>
+                <div class='navbar-header'>
+                    <div class='navbar-brand' align=center>
+                        不吐不快
+                    </div>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href='/admin/'>後台管理</a></li>
+                    <li><a href='/'>APP_MAIN</a></li>
+                    <li><a href='/app_three/'>Home</a></li>
+                    <li><a href='/app_three/list/'>瀏覽訊息</a></li>
+                    <li><a href='/app_three/post/'>張貼訊息(僅表單)</a></li>
+                    <li><a href='/app_three/post2db/'>張貼訊息</a></li>
+                    <li><a href='/app_three/contact/'>連絡管理員</a></li>
+                </ul>
             </div>
-        </div>
-        <ul class='nav navbar-nav'>
-            <li class='active'><a href='/'>Home</a></li>
-            <li><a href='/list'>瀏覽訊息</a></li>
-            <li><a href='/post'>張貼訊息(僅表單)</a></li>
-            <li><a href='/post2db'>張貼訊息</a></li>
-            <li><a href='/contact'>連絡管理員</a></li>
-            <li><a href='/admin'>後台管理</a></li>
-        </ul>
+        </nav>
     </div>
-</nav>
+    <script>
+        /* When redirected, get current url path */
+        $("#topheader li a").each(function (index, ele) {
+            if (window.location.origin + ele.getAttribute("href") === window.location.href) {
+                $(ele).parent().addClass("active");
+            }
+        });
+        /* Show click changes */
+        $("#topheader li").click(function(){
+            $("#topheader li").each(function (index, ele) {
+                $(ele).removeClass("active");
+            });
+            $(this).addClass("active");
+        });
+    </script>
+</body>

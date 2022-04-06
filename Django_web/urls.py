@@ -32,7 +32,7 @@ urlpatterns = [
 urlpatterns += [
     path('app_one/', v1.homepage),
     re_path('app_one/post/(\w+)', v1.showpost),
-    path('/app_one/mdeditor/', include('mdeditor.urls'))
+    path('mdeditor/', include('mdeditor.urls'))
 ]
 
 # app_two
@@ -44,6 +44,11 @@ urlpatterns += [
 # app_three
 urlpatterns += [
     path('app_three/', v3.index),
+    path('app_three/list/', v3.listing),
+    path('app_three/post/', v3.posting),
+    path('app_three/post2db/', v3.post2db),
+    path('app_three/contact/', v3.contact),
+    path('captcha/', include('captcha.urls')),
 ]
 
 

@@ -1,4 +1,4 @@
-#_*_ encoding: utf-8 *_*
+# _*_ encoding: utf-8 *_*
 from captcha.fields import CaptchaField
 from django import forms
 
@@ -19,9 +19,11 @@ class ContactForm(forms.Form):
     user_school = forms.BooleanField(label='是否在學', required=False)
     user_email = forms.EmailField(label='電子郵件')
     user_message = forms.CharField(label='您的意見', widget=forms.Textarea)
-    
+
+
 class PostForm(forms.ModelForm):
     captcha = CaptchaField()
+
     class Meta:
         model = models.Post
         fields = ['mood', 'nickname', 'message', 'del_pass']
