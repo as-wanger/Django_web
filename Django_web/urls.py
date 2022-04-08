@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+import app_four.views as v4
 import app_one.views as v1
 import app_three.views as v3
 import app_two.views as v2
@@ -49,6 +50,15 @@ urlpatterns += [
     path('app_three/post2db/', v3.post2db),
     path('app_three/contact/', v3.contact),
     path('captcha/', include('captcha.urls')),
+]
+
+urlpatterns += [
+    path('app_four/', v4.index),
+    re_path('(\d+)/(\w+)/', v4.index),
+    path('userinfo/', v4.userinfo),
+    path('post/', v4.posting),
+    path('login/', v4.login),
+    path('logout/', v4.logout),
 ]
 
 

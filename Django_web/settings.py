@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'app_one.apps.AppOneConfig',
     'app_two.apps.AppTwoConfig',
     'app_three.apps.AppThreeConfig',
+    'app_four.apps.AppFourConfig',
     'mdeditor',
     'captcha',
 ]
