@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app_two.apps.AppTwoConfig',
     'app_three.apps.AppThreeConfig',
     'app_four.apps.AppFourConfig',
+    'app_five.apps.AppFiveConfig',
     'mdeditor',
     'captcha',
 ]
@@ -130,6 +131,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -141,7 +143,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 
 # Default primary key field type

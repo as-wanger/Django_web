@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+import app_five.views as v5
 import app_four.views as v4
 import app_one.views as v1
 import app_three.views as v3
@@ -52,15 +53,27 @@ urlpatterns += [
     path('captcha/', include('captcha.urls')),
 ]
 
+# app_four
 urlpatterns += [
     path('app_four/', v4.index),
-    re_path('(\d+)/(\w+)/', v4.index),
-    path('userinfo/', v4.userinfo),
-    path('post/', v4.posting),
-    path('login/', v4.login),
-    path('logout/', v4.logout),
+    re_path('app_four/(\d+)/(\w+)/', v4.index),
+    path('app_four/userinfo/', v4.userinfo),
+    path('app_four/post/', v4.posting),
+    path('app_four/login/', v4.login),
+    path('app_four/logout/', v4.logout),
 ]
 
+# app_five
+urlpatterns += [
+    path('app_five/', v5.index),
+    re_path('app_five/(\d+)/(\w+)/', v5.index),
+    path('app_five/userinfo/', v5.userinfo),
+    path('app_five/post/', v5.posting),
+    path('app_five/login/', v5.login),
+    path('app_five/logout/', v5.logout),
+    path('accounts/', include('django_registration.backends.activation.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
+]
 
 if settings.DEBUG:
     # static files (images, css, js, etc...)

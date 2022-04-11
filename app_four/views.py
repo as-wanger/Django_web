@@ -18,7 +18,7 @@ def index(request, pid=None, del_pass=None):
         useremail = request.user.email
         try:
             user = models.User.objects.get(username=username)
-            diaries = models.Diary.objects.filter(user=user).order_by('-ddate')
+            diaries = models.Diary4.objects.filter(user=user).order_by('-ddate')
         except:
             pass
     messages.get_messages(request)
@@ -36,7 +36,7 @@ def userinfo(request):
         username = request.user.username
         try:
             user = User.objects.get(username=username)
-            userinfo = models.Profile.objects.get(user=user)
+            userinfo = models.Profile4.objects.get(user=user)
         except:
             pass
     template = get_template('app_four/userinfo.html')
@@ -89,7 +89,7 @@ def posting(request):
 
     if request.method == 'POST':
         user = User.objects.get(username=username)
-        diary = models.Diary(user=user)
+        diary = models.Diary4(user=user)
         post_form = forms.DiaryForm(request.POST, instance=diary)
         if post_form.is_valid():
             messages.add_message(request, messages.INFO, "日記已儲存")
