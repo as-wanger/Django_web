@@ -19,7 +19,7 @@ class DiaryForm(ModelForm):
     captcha = CaptchaField()
 
     class Meta:
-        model = models.Diary
+        model = models.Diary4
         fields = ['budget', 'weight', 'note', 'ddate']
         widgets = {
             'ddate': DateInput(),
