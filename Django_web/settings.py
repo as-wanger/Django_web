@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import requests
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -39,15 +41,36 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'app_.apps.App_Config',
     'app_one.apps.AppOneConfig',
     'app_two.apps.AppTwoConfig',
     'app_three.apps.AppThreeConfig',
     'app_four.apps.AppFourConfig',
     'app_five.apps.AppFiveConfig',
+    'app_six.apps.AppSixConfig',
     'mdeditor',
     'captcha',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
 ]
+
+# hook the first site
+SITE_ID = 2
+# change redirect url
+LOGIN_REDIRECT_URL = '/app_six/'
+LOGOUT_REDIRECT_URL = '/app_six/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # that's default
+EMAIL_USE_TLS = True  # 開啟TLS(傳輸層安全性)
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'wang.chien.chih.yay@gmail.com'  # 寄件者電子郵件
+with open(os.path.join(BASE_DIR, 'secret_email_app.txt'), 'r', encoding='utf-8') as f:
+    EMAIL_HOST_PASSWORD = f.read()  # Gmail應用程式的密碼
+EMAIL_PORT = 587  # TLS通訊埠號
 
 MDEDITOR_CONFIGS = {
     'default':{
@@ -80,6 +103,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # 'libraries': {
+            #     'mvote_extras': 'app_six.templatetags.mvote_extras'
+            # }
         },
     },
 ]

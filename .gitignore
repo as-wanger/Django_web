@@ -1,5 +1,6 @@
 /shelf/
 /secret_key.txt
+/secret_email_app.txt
 
 */migrations
 /mysqld

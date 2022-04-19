@@ -1,0 +1,47 @@
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/appthree.css" %}">
+</head>
+<body>
+    <div id="topheader">
+        <nav class='navbar navbar-default'>
+            <div class='container-fluid'>
+                <div class='navbar-header'>
+                    <div class='navbar-brand' align=center>
+                        投票趣
+                    </div>
+                </div>
+                {% load account %}
+                <ul class='nav navbar-nav'>
+                    <li><a href='/admin'>後台管理</a></li>
+                    <li><a href='/'>APP_MENU</a></li>
+                    <li><a href='/app_six/'>Home</a></li>
+                    {% if user.is_authenticated  %}
+                    <li><a href="/app_six/addpoll/">新增(編輯)投票</a></li>
+                    <li><a href="{% url 'account_reset_password' %}">重設密碼</a></li>
+                    <li><a href="{% url 'account_email' %}">管理電子郵件</a></li>
+                    <li><a href="{% url 'account_logout' %}">登出</a></li>
+                    {% else %}
+                    <li><a href="{% url 'account_login' %}">登入</a></li>
+                    <li><a href="{% url 'account_signup' %}">註冊</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <script>
+                /* When redirected, get current url path */
+                $("#topheader li a").each(function (index, ele) {
+                    if (window.location.origin + ele.getAttribute("href") === window.location.href) {
+                        $(ele).parent().addClass("active");
+                    }
+                });
+                /* Show click changes */
+                $("#topheader li").click(function(){
+                    $("#topheader li").each(function (index, ele) {
+                        $(ele).removeClass("active");
+                    });
+                    $(this).addClass("active");
+                });
+            </script>
+        </nav>
+    </div>
+</body>
