@@ -14,17 +14,34 @@
                 <ul class='nav navbar-nav'>
                     <li><a href='/admin'>後台管理</a></li>
                     <li><a href='/'>APP_MAIN</a></li>
-                    <li class='active'><a href='/app_five/'>Home</a></li>
+                    <li><a href='/app_five/'>Home</a></li>
                     {% if username %}
-                    <li><a href='/app_five/userinfo'>個人資料</a></li>
-                    <li><a href='/app_five/post'>寫日記</a></li>
-                    <li><a href='/app_five/logout'>登出</a></li>
+                    <li><a href='/app_five/userinfo/'>個人資料</a></li>
+                    <li><a href='/app_five/post/'>寫日記</a></li>
+                    <li><a href='/app_five/logout/'>登出</a></li>
                     {% else %}
-                    <li><a href='/app_five/login'>登入</a></li>
+                    <li><a href='/app_five/login/'>登入</a></li>
                     <li><a href='/accounts/register'>註冊</a></li>
                     {% endif %}
                 </ul>
             </div>
+            <script>
+                /* When redirected, get current url path */
+                $("#topheader li a").each(function (index, ele) {
+                    console.log(window.location.origin)
+                    console.log(ele.getAttribute("href"))
+                    if (window.location.origin + ele.getAttribute("href") === window.location.href) {
+                        $(ele).parent().addClass("active");
+                    }
+                });
+                /* Show click changes */
+                $("#topheader li").click(function(){
+                    $("#topheader li").each(function (index, ele) {
+                        $(ele).removeClass("active");
+                    });
+                    $(this).addClass("active");
+                });
+            </script>
         </nav>
     </div>
 </body>
