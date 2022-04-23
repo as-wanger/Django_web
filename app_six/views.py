@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -40,7 +41,7 @@ def addpollitem(request, pollid=''):
         if form.is_valid():
 
             form.save()
-            return redirect('/addpollitem/'+pollid)
+            return redirect('app_six/addpollitem/'+pollid)
     else:
         form = forms.PollItemForm()
 
@@ -97,13 +98,15 @@ def vote(request, pollid, pollitemid):
     target_url = '/app_six/poll/' + pollid
     if models.VoteCheck.objects.filter(userid=request.user.id, pollid=pollid,
                                     vote_date=datetime.date.today()):
+        messages.add_message(request, messages.WARNING, '您已經投過票了！')
         return redirect(target_url)
     else:
         vote_rec = models.VoteCheck(userid=request.user.id, pollid=pollid,
                                     vote_date=datetime.date.today())
         vote_rec.save()
+        messages.add_message(request, messages.WARNING, '投票成功！')
     try:
-        pollitem = models.PollItem.objects.get(id = pollitemid)
+        pollitem = models.PollItem.objects.get(id=pollitemid)
     except:
         pollitem = None
     if pollitem is not None:

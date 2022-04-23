@@ -8,13 +8,13 @@ $(document).ready(function() {
         var pollitemid = $("#govote-{{pollitem.id}}").data("itemid");
         $.ajax({
             type: "GET",
-            url: "/govote/",
+            url: "/app_six/govote/",
             data: {
                 "pollitemid": pollitemid,
                 "pollid": {{poll.id}},
             },
             success: function(votes) {
-                if (votes==0) {
+                if (votes===0) {
                     alert("無法投票");
                 } else {
                     $("#pollitem-id-{{pollitem.id}}").html(votes);
@@ -26,11 +26,8 @@ $(document).ready(function() {
 });
 </script>
 <div class='container'>
-{% for message in messages %}
-    <div class='alert alert-{{message.tags}}'>{{ message }}</div>
-{% endfor %}
 <div class='row'>
-    <div class='col-md-12'>
+    <div class='col-md- 12'>
         <div class='panel panel-default'>
             <div class='panel-heading' align=center>
                 <h3>{{ poll.name }}</h3>
@@ -54,7 +51,7 @@ $(document).ready(function() {
             </div>
             <div class='panel panel-footer' align=center>
                 <h4>
-                <a href='/vote/{{poll.id}}/{{pollitem.id}}' title='投票'>
+                <a href='/app_six/vote/{{poll.id}}/{{pollitem.id}}' title='投票'>
                     <span class='glyphicon glyphicon-heart-empty'>
                     </span>
                 </a>

@@ -103,9 +103,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            # 'libraries': {
-            #     'mvote_extras': 'app_six.templatetags.mvote_extras'
-            # }
+            'libraries': {
+                'mvote_extras': 'app_six.templatetags.mvote_extras'
+            }
         },
     },
 ]
